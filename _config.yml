@@ -33,8 +33,8 @@ owner:
     ad-client:
     ad-slot:
   bio:
-  avatar: bio-photo.jpg # 160x160 px image for author byline
-  disqus-shortname: "skye3133"
+  avatar:  # 160x160 px image for author byline
+  disqus-shortname: "myun-d"
 
 
 include:
