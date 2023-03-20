@@ -2,6 +2,7 @@
   "name": "new",
   "version": "0.1.0",
   "private": true,
+  "homepage": "http://myun-D.github.io",
   "scripts": {
     "dev": "next dev",
     "build": "next build",
