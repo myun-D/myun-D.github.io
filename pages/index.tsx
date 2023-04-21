@@ -20,8 +20,6 @@ export default function Home() {
 
 export const getStaticProps = async() => {
   const files = fs.readdirSync(path.join('','posts'))
-
-  console.log(files)
   
   return {
     props: {
