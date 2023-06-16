@@ -16,7 +16,6 @@ import Sapcer from '../../components/Spacer';
 
 function PostDetail({ allPosts, frontMatter, mdxSource}: {files: any, allPosts:any,frontMatter: any, mdxSource: any}){
 
-  // console.log(allPosts2);
   const mainImage = useRef<any>();
   const mainTitle = useRef<any>();
   const description = useRef<any>();

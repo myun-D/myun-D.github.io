@@ -1,7 +1,7 @@
 import Image from "next/legacy/image"
 import styled from "styled-components"
 import { FiArrowLeftCircle, FiArrowRightCircle } from "react-icons/fi"
-import { useRef, useState } from "react";
+import { Fragment, useRef, useState } from "react";
 import iconPagination from "/public/img/icon_pagination.svg";
 
 export default function CustomComponent({
@@ -30,7 +30,7 @@ export default function CustomComponent({
       }
       <ul className="slide">
         {img.map(item => (
-          <li>
+          <li key={item}>
             <Image 
               src={item}
               width={1941}
@@ -43,7 +43,7 @@ export default function CustomComponent({
       {img.length > 1 && 
         <ul className="pagination">
           {img.map((_,idx)=> (
-            <>
+            <Fragment key={idx}>
               {currentImg === idx ? (
                 <li className={currentImg === idx ? "active" : ""} onClick={()=> onPageMove(idx)}>
                   <Image 
@@ -54,7 +54,7 @@ export default function CustomComponent({
               ) : (
                 <li className={currentImg === idx ? "active" : ""} onClick={()=> onPageMove(idx)}>{idx + 1}</li>
               )}
-            </>
+            </Fragment>
           ))}
         </ul>
       }
