@@ -10,10 +10,13 @@ import UseGetSlugPost from '@/hooks/useGetSlugPost';
 import Image from 'next/legacy/image';
 import { useEffect, useRef, useState } from 'react';
 import { grayscale } from 'react-syntax-highlighter/dist/esm/styles/hljs';
-const components = {SyntaxHighlighter}
+// const components = {SyntaxHighlighter}
+import CustomComponent from '../../components/CustomComponent';
+import Sapcer from '../../components/Spacer';
 
-function PostDetail({ allPosts, frontMatter, mdxSource }: {files: any, allPosts:any,frontMatter: any, mdxSource: any}){
+function PostDetail({ allPosts, frontMatter, mdxSource}: {files: any, allPosts:any,frontMatter: any, mdxSource: any}){
 
+  // console.log(allPosts2);
   const mainImage = useRef<any>();
   const mainTitle = useRef<any>();
   const description = useRef<any>();
@@ -81,7 +84,7 @@ function PostDetail({ allPosts, frontMatter, mdxSource }: {files: any, allPosts:
             <div ref={description} className='description'>
               <div className='ptWrapper'>
                 <div ref={descriptionInner}>
-                  <MDXRemote {...mdxSource} components={components} />
+                  <MDXRemote {...mdxSource} components={{CustomComponent, Sapcer}} />
                 </div>
               </div>
             </div>
@@ -116,7 +119,7 @@ export const getStaticProps = async ({params: {slug}}: Context) => {
       allPosts,
       frontMatter,
       slug,
-      mdxSource
+      mdxSource,
     }
   }
 }

@@ -48,8 +48,6 @@ export default function DetailNav({allPosts}: any){
   const handleSort = () => {
     let newPost = allPosts;
 
-    console.log(newPost);
-
     if(sortNav.main){
       newPost = allPosts.filter((item: any) => item.frontMatter.relation === sortNav.main);
     }
@@ -63,7 +61,7 @@ export default function DetailNav({allPosts}: any){
 
   useEffect(() => {
     handleSort();
-    console.log(sortPost);
+    // console.log(sortPost);
   }, [sortNav]);
 
   return (
@@ -88,7 +86,10 @@ export default function DetailNav({allPosts}: any){
         {sortPost.length > 0 ? (
           <>
             {sortPost.map((post:any, idx: any)=> (
-              <li onClick={()=>router.push(`/posts/${post.filename.split('.')[0]}`)} key={idx}>{post.frontMatter.subTitle}</li>
+              <>
+                {/* {console.log(post)} */}
+                <li onClick={()=>router.push(`/posts/${post.filename.split('.')[0]}`)} key={idx}>{post.frontMatter.subTitle}</li>
+              </>
             ))}
           </>
         ) : (
