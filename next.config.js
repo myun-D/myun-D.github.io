@@ -18,6 +18,15 @@ const nextConfig = {
   images: {
     unoptimized: true,
   },
+  async redirects() {
+    return [
+      {
+        source: "/works",
+        destination: "/works/cidermics_branding",
+        permanent: false,
+      },
+    ]
+  },
 }
 
 module.exports = withMDX(nextConfig)
