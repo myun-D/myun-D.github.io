@@ -66,7 +66,7 @@ export default function Home({ allWorks }: { allWorks: any }) {
   )
 }
 
-export const getServerSideProps = async () => {
+export const getStaticProps = () => {
   const allWorks = UseGetAllWorks()
 
   return {

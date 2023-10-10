@@ -6,6 +6,9 @@ const withMDX = require("@next/mdx")({
   },
 })
 
+/**
+ * @type {import('next').NextConfig}
+ */
 const nextConfig = {
   experimental: {
     appDir: false,
