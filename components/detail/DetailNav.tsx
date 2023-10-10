@@ -1,166 +1,116 @@
-import fs from 'fs';
-import path from "path"
-import styled from "styled-components"
-import matter from "gray-matter";
-import { serialize } from "next-mdx-remote/serialize";
-import { Context } from "vm";
-import { useEffect, useState } from 'react';
-import { HiArrowNarrowLeft } from 'react-icons/hi';
-import { useRouter } from 'next/router';
+import { useRouter } from "next/router";
+import styled from "styled-components";
+import { CgArrowLeft, CgArrowRight } from "react-icons/cg";
+import Image from "next/legacy/image";
 
-interface ISortNavProps{
-  [key: string] : string
-}
-
-export default function DetailNav({allPosts}: any){
+export default function DetailNav({ allWorks }: { allWorks: any }) {
   const router = useRouter();
-  const [sortPost, setSortPost] = useState(allPosts);
-  const [sortNav, setSortNav] = useState<ISortNavProps>({
-    main: '',
-    sub: ''
-  });
-
-  const handleSortNav = (type: string, relation: string) => {
-
-    if(type === 'all'){
-      setSortNav({
-        ...sortNav,
-        main: '',
-        sub: ''
-      })
-
-      return;
-    }
-    
-    if(sortNav[type] && (sortNav[type] === relation)){
-      setSortNav({
-        ...sortNav,
-        [type]: ''
-      })
-    }else{
-      setSortNav({
-        ...sortNav,
-        [type]: relation
-      })
-    }
-  }
-
-  const handleSort = () => {
-    let newPost = allPosts;
-
-    if(sortNav.main){
-      newPost = allPosts.filter((item: any) => item.frontMatter.relation === sortNav.main);
-    }
-    if(sortNav.sub){
-      newPost = (sortNav.main ? newPost : allPosts).filter((item: any) => item.frontMatter.meta === sortNav.sub);
-    }
-
-    setSortPost(newPost);
-  }
-
-
-  useEffect(() => {
-    handleSort();
-    // console.log(sortPost);
-  }, [sortNav]);
+  const curWorks = allWorks?.findIndex(
+    (item: any) => item.filename == router.query.slug + ".mdx"
+  );
+  const prevWorks = allWorks[curWorks - 1 < 0 ? "" : curWorks - 1];
+  const nextWorks =
+    allWorks[curWorks + 1 > allWorks.length - 1 ? "" : curWorks + 1];
+  const navWorks = [prevWorks, nextWorks];
 
   return (
-    <DetailNavWrapper>
-      <h2 className="title">
-        <i><HiArrowNarrowLeft /></i>
-        <p className='title'>Works</p>
-      </h2>
-      <div className="navWrapper">
-        <ul className="mainNav nav">
-          <li className={!sortNav.main && !sortNav.sub ? 'active' : ''} onClick={()=>handleSortNav('all','')}>전체</li>
-          <li className={sortNav.main === "works" ? 'active' : ''} onClick={()=>handleSortNav('main','works')}>실무 프로젝트</li>
-          <li className={sortNav.main === "personal" ? 'active' : ''} onClick={()=>handleSortNav('main','personal')}>개인 프로젝트</li>
-        </ul>
-        <ul className="subNav nav">
-          <li className={sortNav.sub === "branding" ? 'active' : ''}  onClick={()=>handleSortNav('sub','branding')}>BRANDING</li>
-          <li className={sortNav.sub === "editorial" ? 'active' : ''}  onClick={()=>handleSortNav('sub','editorial')}>EDITORIAL</li>
-          <li className={sortNav.sub === "graphic" ? 'active' : ''}  onClick={()=>handleSortNav('sub','graphic')}>GRAPHIC</li>
-        </ul>
-      </div>
-      <ul className="postList">
-        {sortPost.length > 0 ? (
-          <>
-            {sortPost.map((post:any, idx: any)=> (
-              <>
-                {/* {console.log(post)} */}
-                <li onClick={()=>router.push(`/posts/${post.filename.split('.')[0]}`)} key={idx}>{post.frontMatter.subTitle}</li>
-              </>
-            ))}
-          </>
-        ) : (
-          <li>선택하신 프로젝트가 없습니다.</li>
-        )}
-      </ul>
-    </DetailNavWrapper>
-  )
+    <ContentNavWrapper>
+      {navWorks.map((item, idx) => {
+        if (item) {
+          return (
+            <li
+              key={idx}
+              className={idx === 0 ? "even" : "odd"}
+              onClick={() =>
+                router.push(`/works/${item.filename.replace(".mdx", "")}`)
+              }
+            >
+              <div>
+                <i>{idx == 0 ? <CgArrowLeft /> : <CgArrowRight />}</i>
+                {item.frontMatter.img && (
+                  <div className="imgWapper">
+                    <Image
+                      src={item.frontMatter.img}
+                      width={2263}
+                      height={905}
+                      alt={item.frontMatter.description}
+                    />
+                  </div>
+                )}
+              </div>
+              <div>
+                <em>{idx == 0 ? "이전" : "다음"} 프로젝트</em>
+                <p>{item?.frontMatter.title.replace(/\\n/g, " ")}</p>
+              </div>
+            </li>
+          );
+        } else {
+          return (
+            <li
+              key={idx}
+              style={{
+                color: "#d9d9d9",
+                cursor: "default",
+                alignSelf: "flex-end",
+                fontSize: "1.2rem",
+              }}
+              className={idx === 0 ? "even" : "odd"}
+            >
+              {idx === 0 ? "첫번째" : "마지막"} 프로젝트 입니다.
+            </li>
+          );
+        }
+      })}
+    </ContentNavWrapper>
+  );
 }
 
-const DetailNavWrapper = styled.div`
-  width: calc(100vw / 4);
-  min-width: calc(100vw / 4);
-  min-height: 100vh;
-  background: #000;
-  color: #fff;
-  h2{
-    padding: 2rem 1.5rem 0.6rem;
-    border-bottom: 2px solid #fff;
-
-    i{
-      display: inline-flex;
-      padding: 0.8rem;
-      font-size: 2rem;
-      border: 2px solid #fff;
-      border-radius: 50%;
-      cursor: pointer;
+const ContentNavWrapper = styled.ul`
+  position: relative;
+  display: flex;
+  justify-content: flex-start;
+  padding: ${(props) => `1.5rem 3rem 5rem calc(var(--titleW) + 6rem)`};
+  border-top: 1px solid #d9d9d9;
+  li {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: flex-start;
+    cursor: pointer;
+    i {
+      font-size: 2.4rem;
     }
-    p{
-      margin-top: 7rem;
-      font-size: 3.2rem;
-      font-weight: normal;
+    .imgWapper {
+      width: 16rem;
+      height: 6rem;
+      margin: 0.4rem 0 1.5rem;
+      background: #d9d9d9;
     }
-  }
-  .navWrapper{
-    padding: 2rem 1.5rem 1rem;
-    .nav{
-      display: flex;
-      justify-content: flex-start;
-      flex-wrap: wrap;
-      align-items: center;
-      font-size: 1.4rem;
-  
-      &.mainNav{
-        font-weight: 700;
+    em {
+      display: block;
+      margin-bottom: 0.2rem;
+      font-size: 1.2rem;
+    }
+    p {
+      max-width: 16rem;
+      word-break: keep-all;
+      font-size: 1.2rem;
+      text-align: left;
+    }
+    &.odd {
+      justify-content: flex-end;
+      align-items: flex-end;
+      margin-left: auto;
+      text-align: right;
+      > div {
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-end;
+        align-items: flex-end;
       }
-      li{
-        cursor: pointer;
-        border: 2px solid #fff;
-        border-radius: 50rem;
-        margin: 0 1rem 1rem 0;
-        padding: 0.6rem 1.2rem 0.4rem;
-        white-space: nowrap;
-        font-weight: 500;
-  
-        &.active{
-          background: #00FF00;
-          border-color: #00FF00;
-          color: #000;
-        }
+      p {
+        text-align: right;
       }
     }
   }
-  
-  .postList{
-    border-top: 2px solid #fff;
-    li{
-      padding: 1rem 1.5rem 0.8rem;
-      border-bottom: 1px solid #fff;
-      font-size: 1.4rem;
-      cursor: pointer;
-    }
-  }
-`
+`;

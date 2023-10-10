@@ -1,6 +1,56 @@
-import { createGlobalStyle } from "styled-components";
+import { createGlobalStyle } from "styled-components"
 
 const GlobalStyles = createGlobalStyle`
+  @font-face {
+    font-family: "Archivo-Black";
+    src: url('/public/fonts/ArchivoBlack-Regular.ttf') format('ttf');
+    font-weight: 400;
+  }
+  @font-face {
+    font-family: "Apple Sandoll Gothic";
+    src: url('/public/fonts/AppleSDGothicNeoT.ttf') format('ttf');
+    font-weight: 100;
+  }
+  @font-face {
+    font-family: "Apple Sandoll Gothic";
+    src: url('/public/fonts/AppleSDGothicNeoUL.ttf') format('ttf');
+    font-weight: 200;
+  }
+  @font-face {
+    font-family: "Apple Sandoll Gothic";
+    src: url('/public/fonts/AppleSDGothicNeoL.ttf') format('ttf');
+    font-weight: 300;
+  }
+  @font-face {
+    font-family: "Apple Sandoll Gothic";
+    src: url('/public/fonts/AppleSDGothicNeoR.ttf') format('ttf');
+    font-weight: 400;
+  }
+  @font-face {
+    font-family: "Apple Sandoll Gothic";
+    src: url('/public/fonts/AppleSDGothicNeoM.ttf') format('ttf');
+    font-weight: 500;
+  }
+  @font-face {
+    font-family: "Apple Sandoll Gothic";
+    src: url('/public/fonts/AppleSDGothicNeoSB.ttf') format('ttf');
+    font-weight: 600;
+  }
+  @font-face {
+    font-family: "Apple Sandoll Gothic";
+    src: url('/public/fonts/AppleSDGothicNeoB.ttf') format('ttf');
+    font-weight: 700;
+  }
+  @font-face {
+    font-family: "Apple Sandoll Gothic";
+    src: url('/public/fonts/AppleSDGothicNeoEB.ttf') format('ttf');
+    font-weight: 800;
+  }
+  @font-face {
+    font-family: "Apple Sandoll Gothic";
+    src: url('/public/fonts/AppleSDGothicNeoH.ttf') format('ttf');
+    font-weight: 900;
+  }
   html,
   body {
     padding: 0;
@@ -71,9 +121,10 @@ const GlobalStyles = createGlobalStyle`
     cursor: pointer;
   }
 
-  body .title{
+  body .title,
+  body .title *{
     font-family: 'Archivo Black','sans-serif' !important;
   }
 `
 
-export default GlobalStyles;
+export default GlobalStyles
