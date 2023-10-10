@@ -4,7 +4,7 @@ export default function Works() {
   return <></>
 }
 
-export const getServerSideProps = ({}) => {
+export function getServerSideProps() {
   const allWorks = UseGetAllWorks()
   return {
     redirect: {

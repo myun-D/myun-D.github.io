@@ -35,7 +35,7 @@ export default function SwiperWorks({ allWorks }: { allWorks: IAllworks[] }) {
         centeredSlides={true}
         loop={true}
         mousewheel={true}
-        onClick={(e) => onClickItem(e)}
+        onClick={(e: any) => onClickItem(e)}
       >
         {allWorks.map((project, idx) => (
           <SwiperSlide key={idx} className="slide" data-path={project.filename}>
