@@ -10,9 +10,7 @@ const withMDX = require("@next/mdx")({
  * @type {import('next').NextConfig}
  */
 const nextConfig = {
-  experimental: {
-    appDir: false,
-  },
+  skipMiddlewareUrlNormalize: true,
   pageExtensions: ["ts", "tsx", "js", "jsx", "md", "mdx"],
   reactStrictMode: false,
   images: {
