@@ -1,11 +1,11 @@
 export const education = [
   {
     title: "2017 - 2019",
-    text: "ㅇㅇㅇㅇ대학교 시각디자인과",
+    text: "학력",
   },
   {
     title: "2014 - 2017",
-    text: "ㅇㅇㅇㅇ고등학교 미디어디자인과",
+    text: "학력",
   },
 ]
 export const experience = [

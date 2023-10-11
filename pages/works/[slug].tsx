@@ -58,6 +58,7 @@ export default function WorksDetail({
   useEffect(() => {
     handleResize()
     handleScroll()
+    description.current.scrollTo(0, 0)
     window.addEventListener("resize", handleResize)
     description.current.addEventListener("scroll", handleScroll)
 
@@ -68,7 +69,7 @@ export default function WorksDetail({
 
   return (
     <DetailFormWrapper
-      img={frontMatter.img ? true : false}
+      img={frontMatter?.img ? true : false}
       isOverlay={isOverlay}
     >
       <Sidebar
@@ -81,12 +82,9 @@ export default function WorksDetail({
             <Image
               onLoad={handleResize}
               src={frontMatter.img}
-              width={1086}
-              height={434}
-              sizes="100vw"
+              fill
               style={{
-                width: "100%",
-                height: "auto",
+                objectFit: 'cover',
               }}
               alt="메인 이미지"
             />
@@ -166,11 +164,15 @@ const DetailFormWrapper = styled.div<{ isOverlay: boolean; img: boolean }>`
     width: 100%;
     overflow-y: auto;
     .mainImg {
+      position: relative;
       z-index: -1;
       position: fixed;
       top: 0;
       right: 0;
       width: calc(100% - var(--sideW));
+      height: 40rem;
+      max-height: 50vh;
+      overflow: hidden;
       /* filter: ${(props) => (props.isOverlay ? "grayscale(1)" : "none")}; */
       opacity: ${(props) => (props.isOverlay ? "0.15" : "1")};
       transition: all ease 0.3s 0s;
@@ -217,8 +219,8 @@ const DetailFormWrapper = styled.div<{ isOverlay: boolean; img: boolean }>`
           height: fit-content;
           > div {
             > * {
-              font-size: 1.4rem;
               line-height: 1.5;
+              margin: auto;
             }
           }
         }

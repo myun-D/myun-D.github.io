@@ -13,7 +13,7 @@ export default function SidebarProfile() {
           <div>
             <Image src={ImgMe2} layout="responsive" alt="프로필 사진" />
           </div>
-          <em>김땡땡</em>
+          <em>김현지</em>
         </div>
       </div>
       <ul className="profileInfo">

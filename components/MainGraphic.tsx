@@ -1,11 +1,80 @@
+import Image from "next/image"
 import styled from "styled-components"
 
 export default function MainGraphic() {
   return (
     <MainGraphicWrapper>
-      <div>
-        <p className="text">새단장 중입니다.</p>
-      </div>
+        <section>
+          <div>
+            <Image 
+              width={486}
+              height={119}
+              src={"/img/img_text1.svg"}
+              alt="하트"
+              style={{
+                width: "100%",
+                height: "auto"
+              }}
+            />
+          </div>
+        </section>
+        <section>
+          <div>
+            <Image 
+              width={718}
+              height={142}
+              src={"/img/img_text2.svg"}
+              alt="(graphic)"
+              style={{
+                width: "100%",
+                height: "auto"
+              }}
+            />
+          </div>
+        </section>
+        <section>
+          <div>
+            <Image 
+              width={729}
+              height={132}
+              src={"/img/img_text3.svg"}
+              alt="designer"
+              style={{
+                width: "100%",
+                height: "auto"
+              }}
+            />
+          </div>
+        </section>
+        <section>
+          <span></span>
+          <span></span>
+          <span></span>
+        </section>
+        <div className="heart">
+          <Image 
+            width={620}
+            height={292}
+            src={"/img/icon_main_heart.svg"}
+            alt="하트"
+            style={{
+              width: "100%",
+              height: "auto"
+            }}
+          />
+        </div>
+        <div className="clova">
+          <Image 
+            width={250}
+            height={250}
+            src={"/img/icon_main_clova.svg"}
+            alt="클로버"
+            style={{
+              width: "100%",
+              height: "auto"
+            }}
+          />
+        </div>
       <div className="scroll"></div>
     </MainGraphicWrapper>
   )
@@ -13,14 +82,61 @@ export default function MainGraphic() {
 
 const MainGraphicWrapper = styled.div`
   position: relative;
-  display: flex;
-  justify-content: center;
-  align-items: center;
   height: 100vh;
+  background: url("/img/img_main_bg.svg") no-repeat 50% 50%;
+  background-size: cover;
 
-  .text {
-    font-size: 1.6rem;
+  section{
+    display: flex;
+    align-items: center;
+    padding: 0 10rem;
+    width: 100%;
+    height: calc(100vh / 4);
+    border-bottom: 1px solid #000;
+    :nth-of-type(2){
+      justify-content: center;
+    }
+    :nth-of-type(3){
+      justify-content: flex-end;
+    }
+    &:last-of-type{
+      border-bottom: none;
+    }
+    div{
+      max-width: 900px;
+    }
+
+    span{
+      width: 30rem;
+      height: 2rem;
+      background: #000;
+      border-radius: 20rem;
+      margin: 0 3.5rem;
+
+      :first-child{
+        width: 20rem;
+        margin: 0;
+      }
+      :last-child{
+        width: 8rem;
+        margin: 0;
+      }
+    }
   }
+ 
+  .heart{
+    width: 35rem;
+    position: absolute;
+    top: 40%;
+    left: 0;
+  }
+  .clova{
+    width: 20rem;
+    position: absolute;
+    top: 4rem;
+    right: 4rem;
+  }
+
   .scroll {
     position: absolute;
     bottom: 0rem;

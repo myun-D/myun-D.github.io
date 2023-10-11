@@ -1,6 +1,4 @@
-import { HiArrowNarrowLeft } from "react-icons/hi"
 import styled from "styled-components"
-import SidebarTitle from "../common/SidebarTitle"
 import { ReactNode } from "react"
 
 interface IProfileContent{

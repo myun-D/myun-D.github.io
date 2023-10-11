@@ -6,6 +6,7 @@ import { Swiper, SwiperSlide } from "swiper/react"
 import "swiper/swiper.min.css"
 import "swiper/components/effect-coverflow/effect-coverflow.min.css"
 import "swiper/components/pagination/pagination.min.css"
+import { useLayoutEffect } from "react"
 export default function SwiperWorks({ allWorks }: { allWorks: IAllworks[] }) {
   const router = useRouter()
 
@@ -34,7 +35,6 @@ export default function SwiperWorks({ allWorks }: { allWorks: IAllworks[] }) {
         slidesPerView={4.5}
         centeredSlides={true}
         loop={true}
-        mousewheel={true}
         onClick={(e: any) => onClickItem(e)}
       >
         {allWorks.map((project, idx) => (
@@ -74,13 +74,10 @@ const SwiperWorksWrapper = styled.div`
   width: 100%;
   height: 100vh;
   background: #000;
-  .swiper {
-    display: flex;
-  }
   .slide {
     display: flex;
-    justify-content: center;
-    align-items: center;
+    /* justify-content: center;
+    align-items: center; */
     transform: scale(0.85);
     transition: all 0.3s ease 0s;
     width: 100%;
